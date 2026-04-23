@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,4 @@ Route::delete('/student/{student}', [StudentController::class, 'destroy'])->name
 
 
 Route::resource('departemen', DepartemenController::class);
+Route::resource('lecturer', LecturerController::class);

@@ -18,7 +18,8 @@ class LecturerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'departemen_id' => \App\Models\Departemen::inRandomOrder()->first()->id,
         ];
     }
 }

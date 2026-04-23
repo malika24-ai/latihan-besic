@@ -12,7 +12,11 @@ class LecturerController extends Controller
      */
     public function index()
     {
-        //
+            return view('lecturer.index', [
+                'title' => 'lecturer ',
+                'lecturer' => Lecturer::latest()->get(),
+            
+            ]);
     }
 
     /**
