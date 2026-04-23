@@ -14,8 +14,8 @@ class StudentController extends Controller
     {
 
             return view('student.index', [
-                'title' => 'student ',
-                'students' => Student::all()
+                'title' => 'student',
+                'student' => Student::latest()->get(),
             ]);
     }
 
@@ -24,7 +24,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-         return view('Student.create', ['title' => 'Create Student ']);
+        return view('Student.create', ['title' => 'Create Student ']);
     }
 
     /**
@@ -32,7 +32,21 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    $validated = $request->validate([
+        'name' => 'required|max:255',
+        'nim' => 'required|digits:11|numeric',
+        
+    ],[
+        'name.required' => 'Nama Tidak Boleh Kosong',
+        'nim.required' => 'NIM Tidak Boleh Kosong',
+        'nim.digits' => 'NIM Harus Terdiri Dari 11 Digit',
+        'nim.numeric' => 'NIM Harus Berupa Angka',  
+    ]);
+ 
+        Student::create($validated);
+        return to_route('student.index')->withSuccess('Data Berhasil Ditambahkan');
+ 
+        return redirect('/student');
     }
 
     /**
@@ -48,22 +62,37 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return view('student.edit', [
+                'title' => 'edit student ',
+                'student' => $student,
+        ]);
     }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Student $student)
     {
-        //
-    }
+        $validated = $request->validate([
+        'name' => 'required|max:255',
+        'nim' => 'required|digits:11|numeric',
+    ], [
+        'name.required' => 'Nama Tidak Boleh Kosong',
+        'name.max' => 'Nama Maksimal 255 Karakter',
+        'nim.required' => 'NIM Tidak Boleh Kosong',
+        'nim.digits' => 'NIM Harus 11 Digit',
+        'nim.numeric' => 'NIM Harus Angka',
+    ]);
 
+    $student->update($validated);
+    
+    return to_route('student.index')->withSuccess('Data Berhasil Diubah');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Student $student)
     {
-        //
+        $student->delete($student);
+        return to_route('student.index')->withSuccess('Data Berhasil Dihapus');  
     }
 }
