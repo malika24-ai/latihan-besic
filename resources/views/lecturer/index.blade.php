@@ -12,7 +12,7 @@
         @foreach ($lecturer as $lecturer)
 
             <li class="list-group-item">
-                {{ $lecturer->name }}--{{ $lecturer->departemen->name}}
+                {{ $loop->iteration }}.{{ $lecturer->name }}--{{ $lecturer->departemen->name}}
 
                 <a class="btn btn-primary btn-sm" href="{{ route('lecturer.edit', $lecturer) }}" role="button">edit</a>
                 <form action="{{ route('lecturer.destroy', $lecturer) }}" method="POST" class="d-inline">

@@ -42,10 +42,10 @@ class StudentController extends Controller
         'nim.digits' => 'NIM Harus Terdiri Dari 11 Digit',
         'nim.numeric' => 'NIM Harus Berupa Angka',  
     ]);
- 
+    
         Student::create($validated);
         return to_route('student.index')->withSuccess('Data Berhasil Ditambahkan');
- 
+    
         return redirect('/student');
     }
 
